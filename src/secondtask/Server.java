@@ -1,8 +1,9 @@
+package secondtask;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -10,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * Created by overmes on 17.11.14.
  */
 public class Server {
-    ConcurrentHashMap<Integer, Socket> socketMap = new ConcurrentHashMap<Integer, Socket>();
+    ConcurrentHashMap<Integer, Socket> socketMap = new ConcurrentHashMap<>();
     public static boolean isWork = true;
 
     public static void main(String[] args){
@@ -20,7 +21,7 @@ public class Server {
 
     public void run(int port){
 
-        ServerSocket ss = null;
+        ServerSocket ss;
 
         try {
             ss = new ServerSocket(port);
@@ -70,7 +71,7 @@ public class Server {
         public String convertStreamToString(InputStream in){
             BufferedReader reader = new BufferedReader(new InputStreamReader(in));
             StringBuilder out = new StringBuilder();
-            String line = null;
+            String line;
             try {
                 line = reader.readLine();
                 while (line != null && line.length() != 0) {
@@ -91,7 +92,7 @@ public class Server {
 
 class Messenger {
     public static synchronized void sentMessageToAll(Map<Integer, Socket> socketMap, String message){
-        ArrayList<Integer> toDelete = new ArrayList<Integer>();
+        ArrayList<Integer> toDelete = new ArrayList<>();
         for (Map.Entry<Integer, Socket> current : socketMap.entrySet()) {
             Socket currentSocket = current.getValue();
             Integer currentId = current.getKey();

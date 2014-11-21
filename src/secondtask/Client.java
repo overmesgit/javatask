@@ -1,3 +1,5 @@
+package secondtask;
+
 import java.io.*;
 import java.net.Socket;
 
@@ -13,7 +15,6 @@ public class Client {
     public void run() throws IOException {
         Socket socket = new Socket("127.0.0.1", 9999);
         InputStream sin = socket.getInputStream();
-        OutputStream sout = socket.getOutputStream();
         while (true) {
             String answer = convertStreamToString(sin);
             if (answer.length() > 0) {
