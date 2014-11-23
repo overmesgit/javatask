@@ -3,16 +3,15 @@ package firsttask;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
+import java.lang.reflect.Array;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
  * Created by overmes on 21.11.14.
  */
 public class UserStats {
-    public Map<Integer, Integer> userStats = new TreeMap<>();
+    public Map<Integer, Integer> userStats = new HashMap<>();
     public Map<Integer, Integer> userLoginTimes = new HashMap<>();
 
     public static void main (String[] args) throws IOException {
@@ -54,7 +53,16 @@ public class UserStats {
     }
 
     public void printStats() {
-        for (Map.Entry<Integer, Integer> entry:userStats.entrySet()) {
+        List<Map.Entry<Integer,Integer>> userIdFullTimeEntities = new ArrayList<>();
+        userIdFullTimeEntities.addAll(userStats.entrySet());
+        Collections.sort(userIdFullTimeEntities, new Comparator<Map.Entry<Integer, Integer>>() {
+            @Override
+            public int compare(Map.Entry<Integer, Integer> integerIntegerEntry, Map.Entry<Integer, Integer> integerIntegerEntry2) {
+                return -Integer.compare(integerIntegerEntry.getValue(), integerIntegerEntry2.getValue());
+            }
+        });
+
+        for (Map.Entry<Integer, Integer> entry:userIdFullTimeEntities) {
             Integer userId = entry.getKey();
             Integer totalTime = entry.getValue();
             int day = (int) TimeUnit.SECONDS.toDays(totalTime);
